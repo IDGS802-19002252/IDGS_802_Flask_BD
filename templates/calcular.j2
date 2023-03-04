@@ -1,0 +1,15 @@
+{%extends "layout.html"%}
+{%block content%}
+<h1>Resultado</h1>
+<hr>
+<p>Minimo: {{minimo}}</p>
+<p>Maximo: {{maximo}}</p>
+<p>Promedio: {{promedio|round(2)}}</p>
+<p>Más repetidos:</p>
+<ul>
+  {% for rep,i in masRep.items() %}
+  <li>{{rep}} - {{i}} veces</li>
+  {% endfor %}
+</ul>
+
+{%endblock%}

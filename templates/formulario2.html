@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  {% from '_macro.html' import render_input %}
+
+  <form action="" method="get">
+    {{render_input(name='txtNombre', placeholder='Nombre')}}
+    {{render_input(name='txtApaterno', placeholder='Apaterno')}}
+    {{render_input(name='txtEmail', placeholder='Correo', type='email')}}
+    {{render_input(name='txtPassword', placeholder='Contraseña', type='password')}}
+    <div class="control-group">
+      <div class="controls">
+        <button type="submit" class="btn btn-default btn-primary">
+          <i class="icon-book icon-white"></i>Calcular
+        </button>
+      </div>
+    </div>
+{% endblock %}

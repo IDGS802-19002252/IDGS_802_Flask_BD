@@ -1,0 +1,10 @@
+{% extends 'layout.html' %} {% block content %}
+<div class="col-xs-6">
+  {% from "_macro.html" import render_field %}
+  <form method="post" novalidate>
+    {{ render_field(form.username) }}
+    {{ render_field(form.password) }}
+    <input type="submit" value="Registrar" />
+  </form>
+</div>
+{% endblock %}

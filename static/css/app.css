@@ -1,0 +1,96 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #14206a;
+  color: white;
+}
+
+legend {
+  padding: .5rem;
+}
+
+fieldset {
+  border-radius: 1rem;
+}
+
+
+.container {
+  width: 900px;
+  margin: 0 auto;
+}
+
+.entradas-salidas {
+  display: flex;
+  justify-content: space-between;
+}
+
+.entradas, .salidas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.salidas {
+  justify-content: center;
+}
+
+.acciones {
+  padding: .5rem;
+}
+.img {
+  display: flex;
+  justify-content: center;
+}
+
+img {
+  width: 50%;
+}
+
+input {
+  height: 2rem;
+  width: 100%;
+}
+
+input:disabled {
+  background-color: white;
+  color: black;
+  text-align: center;
+  font-weight: bold;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  height: 1.5rem;
+  text-align: left;
+  width: 100%;
+}
+
+button {
+  padding: .5rem;
+}
+
+.notificacion {
+  display: none;
+  background: #4680fe;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: .5rem;
+  margin: .5rem;
+  border-radius: .5rem;
+}
+
+.n-texto {
+  padding: .2rem;
+}
+
+hr {
+  color: white;
+}

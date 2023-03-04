@@ -1,0 +1,16 @@
+{% macro error(field) %}
+
+{% for error in field.errors %}
+  <li class="text-red-600">{{error}}</li>
+{% endfor %}
+
+{% endmacro %}
+
+{% macro select(name, legend, colores = []) %}
+  <select name="{{name}}" class="input rounded w-full">
+    <option value="-1" disabled selected>- {{legend|upper}} -</option>
+    {% for color in (colores) %}
+      <option value="{{loop.index-1}}">{{color|upper}}</option>
+    {% endfor %}
+  </select>
+{% endmacro %}

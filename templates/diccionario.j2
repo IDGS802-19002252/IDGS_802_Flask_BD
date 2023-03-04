@@ -1,0 +1,75 @@
+{% extends 'layout.j2' %}
+
+{% block content %}
+<div class="container h-full flex justify-center items-center gap-3">
+  <div class="card">
+    <h1 class="font-bold text-3xl text-slate-500">UTranslator IDGS GT Neo 5X Pro+ Ultra Premium</h1>
+    <ul class="flex">
+      <li class="nav-btn {{'seleccionado' if seccion != 'traducir' else ''}}" onclick="cambiarSeccion('agregar')">
+        Agregar
+      </li>
+      <li class="nav-btn {{'seleccionado' if seccion == 'traducir' else ''}}" onclick="cambiarSeccion('traducir')">
+        Traducir</li>
+      <form id="seccion" method="get" class="hidden"><input type="text" name="seccion"></form>
+    </ul>
+    <hr class="my-3">
+    {% from '_macros.j2' import error %}
+    {% if seccion != 'traducir' %}
+    <form action="/guardar" method="post" class="flex flex-col gap-3">
+      <input type="text" name="palabra" placeholder="ingresa la palabra" class="input">
+      <input type="text" name="word" placeholder="escribe la traducción" class="input">
+      <button class="btn" type="submit">Guardar</button>
+      {% if form and (form.palabra.errors or form.word.errors) %}
+      <ul class="bg-red-200 border border-red-400 rounded p-2">
+        {{error(form.palabra)}}
+        {{error(form.word)}}
+      </ul>
+      {% endif %}
+    </form>
+    {% else %}
+    <form action="/traducir" method="post" class="flex flex-col gap-3">
+      <input type="text" class="input" name="palabra" placeholder="ingresa la palabra">
+      <fieldset class="flex justify-center gap-2 border pb-3 rounded">
+        <legend class="text-slate-500 px-2">Idioma:</legend>
+        <div>
+          <input id="lang1" type="radio" name="idioma" value="es" class="peer appearance-none">
+          <label for="lang1" class="checked-radio">Español</label>
+        </div>
+        <div>
+          <input id="lang2" type="radio" name="idioma" value="en" class="peer appearance-none">
+          <label for="lang2" class="checked-radio">Inglés</label>
+        </div>
+      </fieldset>
+      <button class="btn">Traducir</button>
+
+      {% if form and (form.palabra.errors or form.idioma.errors) %}
+      <ul class="bg-red-200 border border-red-400 rounded p-2">
+        {{error(form.palabra)}}
+        {{error(form.idioma)}}
+      </ul>
+      {% else %}
+        {% if traduccion %}
+          <div class="bg-green-200 border border-green-400 rounded p-2">
+            <p class="text-green-700"> > {{traduccion}}</p>
+          </div>
+        {% elif traduccion == None %}
+          <div class="bg-yellow-200 border border-yellow-400 rounded p-2">
+            <p class="text-yellow-700"> No se encontró la palabra en el diccionario.</p>
+          </div>
+        {% endif %}
+      {% endif %}
+      
+    </form>
+    {% endif %}
+  </div>
+</div>
+
+<script>
+  const cambiarSeccion = (seccion) => {
+    const form = document.querySelector('#seccion');
+    form.querySelector('input').value = seccion;
+    form.submit();
+  }
+</script>
+
+{% endblock content %}

@@ -1,0 +1,27 @@
+{%extends 'layout.html'%}
+
+{%block content%}
+
+<div>
+  <form action="/multinputs" method="post">
+    <div class="control-group">
+      <label for="numero" class="control-label">Cantidad de números: </label>
+      <div class="controls">
+        <input type="number" name="numero">
+      </div>
+      <input type="submit" value="Generar">
+    </div>
+  </form>
+  <hr>
+  {% from '_macro.html' import render_inputs %}
+  <form action="/calcular" method="post">
+    {% if showForm %}
+    {% for n in range(nInputs) %}
+    {{render_inputs(n)}}
+    {% endfor %}
+    <button type="submit">Calcular</button>
+    {% endif %}
+  </form>
+</div>
+
+{%endblock%}

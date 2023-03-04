@@ -1,0 +1,50 @@
+{% extends 'layout.j2' %}
+
+{% block content %}
+<div class="container mx-auto h-full flex items-center justify-center">
+  {% from '_macros.j2' import select, error %}
+  <div class="card bg-white/90 backdrop-blur">
+    <h2 class="text-3xl font-bold text-center">Calculadora de resistencias</h2>
+    <hr class="my-3">
+    <img src="../static/img/tabla.png" alt="Tabla" class="w-1/2 mx-auto rounded shadow" />
+    <hr class="my-3">
+    <form id="form1" method="post" class="flex flex-col gap-3">
+      {{select('banda1', 'selecciona la banda 1', colores)}}
+      {{select('banda2', 'selecciona la banda 2', colores)}}
+      {{select('banda3', 'selecciona la banda 3', colores)}}
+      {{select('tolerancia', 'selecciona la tolerancia', tolerancias)}}
+      <button class="btn">Calcular</button>
+      {% if form and (form.banda1.errors or form.banda2.errors or form.banda3.errors or form.tolerancia.errors) %}
+        <ul class="bg-red-200 border border-red-400 rounded p-2">
+          {{error(form.banda1)}}
+          {{error(form.banda2)}}
+          {{error(form.banda3)}}
+          {{error(form.tolerancia)}}
+        </ul>
+      {% endif %}
+    </form>
+    <table class="w-full border mt-3 text-center">
+      <thead>
+        <th>Banda 1</th>
+        <th>Banda 2</th>
+        <th>Banda 3</th>
+        <th>Tolerancia</th>
+        <th>Valor</th>
+        <th>Mínimo</th>
+        <th>Máximo</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="{{request.cookies.get('clase_banda1')}} {{'color: white' if request.cookies.get('color_banda1') == 'negro' or 'marron' else 'color: black'}}">{{request.cookies.get('color_banda1')}}</td>
+          <td style="{{request.cookies.get('clase_banda2')}} {{'color: white' if request.cookies.get('color_banda2') == 'negro' or 'marron' else 'color: black'}}">{{request.cookies.get('color_banda2')}}</td>
+          <td style="{{request.cookies.get('clase_banda3')}}  {{'color: white' if request.cookies.get('color_banda2') == 'negro' or 'marron' else 'color: black'}}">{{request.cookies.get('color_banda3')}}</td>
+          <td style="{{request.cookies.get('clase_tolerancia')}}">{{request.cookies.get('color_tolerancia')}}</td>
+          <td>{{request.cookies.get('resultado')}}</td>
+          <td>{{request.cookies.get('minimo')}}</td>
+          <td>{{request.cookies.get('maximo')}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock content %}
