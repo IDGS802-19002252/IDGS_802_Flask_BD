@@ -17,6 +17,7 @@ def index():
     alum = Alumnos(nombre=create_form.nombre.data, apellidos=create_form.apellidos.data, email=create_form.email.data)
     db.session.add(alum)
     db.session.commit()
+    return redirect(url_for("ABCompleto"))
   return render_template("index.j2", form=create_form)
   # return render_template("index.j2")
 
@@ -42,20 +43,19 @@ def modificar():
     return redirect(url_for("ABCompleto"))
   return render_template("modificar.j2", form=create_form)
 
+@app.route('/eliminar', methods=['POST'])
+def eliminar():
+  id=request.form['id']
+  alum=db.session.query(Alumnos).filter_by(id=id).first()
+  db.session.delete(alum)
+  db.session.commit()
+  return redirect(url_for("ABCompleto"))
+
 @app.route('/ABCompleto', methods=["GET", "POST"])
 def ABCompleto():
   form = forms.UserForm(request.form);
   alumnos = db.session.query(Alumnos).all()
   return render_template("ABCompleto.j2", form = form, alumnos = alumnos)
-
-# @app.post("/")
-# def index_post():
-#   create_form = forms.UserForm(request.form)
-#   if create_form.validate():
-#     alum = Alumnos(nombre=create_form.nombre.data, apellidos=create_form.apellidos.data, email=create_form.email.data)
-#     db.session.add(alum)
-#     db.session.commit()
-#   return render_template("index.j2", form=create_form)
 
 if __name__ == '__main__':
   csrf.init_app(app)
